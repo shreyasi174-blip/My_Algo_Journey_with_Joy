@@ -1,12 +1,28 @@
-#include<stdio.h>
+#include <stdio.h>
 #define MAX 5
 
 int stack[MAX];
 int top = -1;
 
-void push(int value)
+int isFull()
 {
     if (top == MAX - 1)
+        return 1;
+    else
+        return 0;
+}
+
+int isEmpty()
+{
+    if (top == -1)
+        return 1;
+    else
+        return 0;
+}
+
+void push(int value)
+{
+    if (isFull())
     {
         printf("Stack Overflow\n");
     }
@@ -14,26 +30,27 @@ void push(int value)
     {
         top++;
         stack[top] = value;
-        printf("%d pushed\n", value);
     }
 }
 
-void pop()
+int pop()
 {
-    if (top == -1)
+    if (isEmpty())
     {
         printf("Stack Underflow\n");
+        return -1;
     }
     else
     {
-        printf("%d popped\n", stack[top]);
+        int value = stack[top];
         top--;
+        return value;
     }
 }
 
 void display()
 {
-    if (top == -1)
+    if (isEmpty())
     {
         printf("Stack is empty\n");
     }
@@ -55,9 +72,7 @@ int main()
     printf("Stack: ");
     display();
 
-    printf("\n");
-
-    pop();
+    printf("\nPopped: %d\n", pop());
 
     printf("After pop: ");
     display();
